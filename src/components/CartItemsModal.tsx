@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BaggageClaim, ShoppingCart, Trash2 } from "lucide-react";
+import { BaggageClaim, ShoppingCart, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetFooter,
+  SheetClose,
 } from "@/components/ui/sheet";
 import { useShoppingCart } from "@/hook/useShoppingCart";
 import Image from "next/image";
@@ -31,11 +32,15 @@ export default function CartItemsModal() {
   const handleWhatsAppOrder = () => {
     setIsLoading(true);
     const message = generateWhatsAppMessage(cartItems);
-    const phoneNumber = "1234567890"; // Reemplaza con tu número de WhatsApp
+    const phoneNumber = "922446911";
     const whatsappLink = getWhatsAppLink(message, phoneNumber);
     window.open(whatsappLink, "_blank");
     setIsLoading(false);
   };
+  const total = cartItems.reduce(
+    (sum, item) => sum + parseInt(item.price) * item.quantity,
+    0,
+  );
 
   return (
     <Sheet open={isOpen} onOpenChange={handleOpen}>
@@ -43,7 +48,7 @@ export default function CartItemsModal() {
         <Button
           variant="outline"
           size="icon"
-          className="relative border-none shadow-none"
+          className="relative border-none bg-transparent shadow-none"
         >
           {cartItems.length > 0 ? (
             <>
@@ -68,31 +73,38 @@ export default function CartItemsModal() {
           {cartItems?.map((item) => (
             <div
               key={item.id}
-              className="group relative mb-4 flex items-center rounded-lg border-b p-2 transition-colors duration-200 hover:bg-gray-100"
+              className="group relative flex gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-gray-300"
             >
               <Image
-                src={item.imagen || "/placeholder.svg"}
+                src={item.imagen}
                 alt={item.title}
-                width={60}
-                height={60}
-                className="mr-4 rounded-md"
+                width={300}
+                height={400}
+                className="h-24 w-24 rounded-md object-cover"
               />
-              <div className="flex-grow">
-                <h3 className="font-semibold">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.id}</p>
-                <p className="text-sm text-gray-600">{item.quantity}</p>
+              <div className="flex-1">
+                <h3 className="text-lg font-medium">{item.title}</h3>
+
+                <p className="font-semibold text-gray-800">${item.price}</p>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="text-sm text-gray-600">
+                    Quantity: {item.quantity}
+                  </span>
+                </div>
               </div>
-              <span className="mr-8 font-bold">${item.price}</span>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute right-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              {/* Remove button that appears on hover */}
+              <button
                 onClick={() => removeItem(item.id)}
+                className="absolute right-2 top-2 rounded-full bg-white p-2 opacity-0 transition-opacity hover:bg-red-50 group-hover:opacity-100"
               >
-                <Trash2 className="h-5 w-5 text-red-500" />
-              </Button>
+                <Trash2 size={20} className="text-red-500" />
+              </button>
             </div>
           ))}
+        </div>
+        <div className="mb-4 flex items-center justify-between">
+          <span className="text-lg font-medium">Total</span>
+          <span className="text-2xl font-bold">S/.{total}</span>
         </div>
         <SheetFooter className="mt-auto">
           <Button
@@ -103,6 +115,10 @@ export default function CartItemsModal() {
             {isLoading ? "Enviando..." : "Pedir por WhatsApp"}
           </Button>
         </SheetFooter>
+        <SheetClose className="absolute right-5 top-5">
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetClose>
       </SheetContent>
     </Sheet>
   );
