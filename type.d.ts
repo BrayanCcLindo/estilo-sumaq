@@ -3,43 +3,26 @@ interface ErrorPageProps {
   reset: () => void;
 }
 
-type ProductType = {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-  quantity: number;
-  handle: string;
-  tags: string;
-  gql_id: string;
-  discounted: boolean;
-  rating: number;
+type ProductDetail = {
+  Material?: string;
+  Colores?: string;
+  Dimensiones?: string;
+  Peso?: string;
+  Compartimientos?: string;
+  Correas?: string;
 };
 
 type Product = {
-  URL: string;
-  TITULO: string;
-  CATEGORIA: string;
-  IMAGEN: string;
-  DESCRIPCION: string;
-  CARACTERITICAS: string;
-  PUBLICADO: boolean;
-  STOCK: string;
-  PRICE1: number;
-  DESCUENTO: string;
-  MODALIDAD: string;
-  RATING: number;
-  "SEO-DESCRIPTION": string;
-  id: string;
-  CANTIDAD: string;
-};
-
-type CartItem = {
+  slug: string;
   title: string;
-  price: number;
-  quantity: number;
+  category: string;
+  description: string;
+  published: boolean;
+  price: string;
+  discount: string;
+  rating: number;
   id: string;
-  image: string;
-  merchandiseId: string;
+  imagen: string;
+  detalles: ProductDetail[];
+  quantity: number;
 };

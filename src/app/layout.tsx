@@ -1,7 +1,8 @@
-import { Roboto } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { Toaster } from "sonner";
+import Footer from "@/components/Footer";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -13,12 +14,10 @@ import { Toaster } from "sonner";
 //   subsets: ["latin"],
 // });
 
-const robotoFont = Roboto({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-roboto",
-  style: ["normal", "italic"],
-  weight: ["400", "500", "700"],
-  preload: true,
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 // export const metadata: Metadata = {
@@ -33,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={robotoFont.className}>
+      <body className={playfair.className}>
         <Toaster
           richColors
           theme="light"
@@ -45,6 +44,7 @@ export default function RootLayout({
         />
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

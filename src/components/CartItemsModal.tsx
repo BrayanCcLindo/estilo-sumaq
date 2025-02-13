@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/sheet";
 import { useShoppingCart } from "@/hook/useShoppingCart";
 import Image from "next/image";
+import { generateWhatsAppMessage, getWhatsAppLink } from "@/utils/wspMessage";
 
 export default function CartItemsModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isBuying, setIsBuying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const cartItems = useShoppingCart((state) => state.items);
   const removeItem = useShoppingCart((state) => state.removeItem);
 
@@ -27,7 +28,14 @@ export default function CartItemsModal() {
       setIsOpen(!isOpen);
     }
   };
-  console.log(setIsBuying, "setIsBuying");
+  const handleWhatsAppOrder = () => {
+    setIsLoading(true);
+    const message = generateWhatsAppMessage(cartItems);
+    const phoneNumber = "1234567890"; // Reemplaza con tu número de WhatsApp
+    const whatsappLink = getWhatsAppLink(message, phoneNumber);
+    window.open(whatsappLink, "_blank");
+    setIsLoading(false);
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={handleOpen}>
@@ -59,18 +67,18 @@ export default function CartItemsModal() {
               className="group relative mb-4 flex items-center rounded-lg border-b p-2 transition-colors duration-200 hover:bg-gray-100"
             >
               <Image
-                src={item.IMAGEN || "/placeholder.svg"}
-                alt={item.TITULO}
+                src={item.imagen || "/placeholder.svg"}
+                alt={item.title}
                 width={60}
                 height={60}
                 className="mr-4 rounded-md"
               />
               <div className="flex-grow">
-                <h3 className="font-semibold">{item.TITULO}</h3>
+                <h3 className="font-semibold">{item.title}</h3>
                 <p className="text-sm text-gray-600">{item.id}</p>
-                <p className="text-sm text-gray-600">{item.CANTIDAD}</p>
+                <p className="text-sm text-gray-600">{item.quantity}</p>
               </div>
-              <span className="mr-8 font-bold">${item.PRICE1}</span>
+              <span className="mr-8 font-bold">${item.price}</span>
               <Button
                 variant="ghost"
                 size="icon"
@@ -84,11 +92,11 @@ export default function CartItemsModal() {
         </div>
         <SheetFooter className="mt-auto">
           <Button
-            disabled={isBuying}
             className="w-full"
-            // onClick={handleBuy}
+            onClick={handleWhatsAppOrder}
+            disabled={isLoading}
           >
-            Comprar ahora
+            {isLoading ? "Enviando..." : "Pedir por WhatsApp"}
           </Button>
         </SheetFooter>
       </SheetContent>

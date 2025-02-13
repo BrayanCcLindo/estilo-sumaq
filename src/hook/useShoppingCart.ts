@@ -5,7 +5,6 @@ interface CartStore {
   items: Product[];
   addItem: (product: Product) => void;
   removeItem: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: string) => void;
   clearCart: () => void;
   total: () => number;
 }
@@ -84,7 +83,7 @@ export const useShoppingCart = create<CartStore>()(
             return {
               items: state.items.map((item) =>
                 item.id === product.id
-                  ? { ...item, quantity: item.CANTIDAD + 1 }
+                  ? { ...item, quantity: item.quantity + 1 }
                   : item,
               ),
             };
@@ -97,18 +96,12 @@ export const useShoppingCart = create<CartStore>()(
           items: state.items.filter((item) => item.id !== productId),
         }));
       },
-      updateQuantity: (productId, quantity) => {
-        set((state) => ({
-          items: state.items.map((item) =>
-            item.id === productId ? { ...item, quantity } : item,
-          ),
-        }));
-      },
+
       clearCart: () => set({ items: [] }),
       total: () => {
         const items = get().items;
         return items.reduce(
-          (total, item) => total + item.PRICE1 * parseInt(item.CANTIDAD),
+          (total, item) => total + parseInt(item.price) * item.quantity,
           0,
         );
       },

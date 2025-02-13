@@ -15,7 +15,32 @@ const nextConfig: NextConfig = {
         hostname: "cdn.shopify.com",
         protocol: "https",
       },
+      {
+        protocol: "https",
+        hostname: "imgur.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.postimg.cc",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "postimg.cc",
+        port: "",
+        pathname: "/**",
+      },
     ],
+    domains: ["lh3.googleusercontent.com"],
   },
 };
 

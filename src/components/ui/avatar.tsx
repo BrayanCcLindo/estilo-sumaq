@@ -1,19 +1,50 @@
-type AvatarType = {
-  username: string;
-};
+"use client"
 
-const Avatar = ({ username }: AvatarType) => {
-  const initial = username ? username.charAt(0).toUpperCase() : "?";
+import * as React from "react"
+import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
-  return (
-    <div
-      className={
-        "flex transform items-center justify-center gap-4 rounded-full bg-gradient-to-r from-gray-900 to-[#299cd5] px-5 py-3 text-lg font-semibold text-white shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:from-[#299cd5] hover:to-gray-900"
-      }
-    >
-      {initial}
-    </div>
-  );
-};
+import { cn } from "@/lib/utils"
 
-export default Avatar;
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    )}
+    {...props}
+  />
+))
+Avatar.displayName = AvatarPrimitive.Root.displayName
+
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={cn("aspect-square h-full w-full", className)}
+    {...props}
+  />
+))
+AvatarImage.displayName = AvatarPrimitive.Image.displayName
+
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Fallback
+    ref={ref}
+    className={cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800",
+      className
+    )}
+    {...props}
+  />
+))
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
+
+export { Avatar, AvatarImage, AvatarFallback }

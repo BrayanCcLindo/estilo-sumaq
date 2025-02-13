@@ -1,4 +1,5 @@
-import { getProductById } from "@/actions/getProducts";
+import { getProductById, getRelatedProducts } from "@/actions/getProducts";
+import ProductRecomended from "@/components/ProductRecomended";
 import { ProductView } from "@/components/ProductView";
 import { redirect } from "next/navigation";
 
@@ -29,6 +30,14 @@ export default async function ProductPage({
   }
 
   const product = await getProductById(id);
+  const relatedProducts = await getRelatedProducts(id);
 
-  return <>{product && <ProductView product={product} />}</>;
+  return (
+    <>
+      {product && <ProductView product={product} />}
+      {relatedProducts && (
+        <ProductRecomended relatedProducts={relatedProducts} />
+      )}
+    </>
+  );
 }
