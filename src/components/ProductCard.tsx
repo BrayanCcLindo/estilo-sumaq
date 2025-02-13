@@ -27,7 +27,7 @@ function ProductCard({ product }: ProductCardInterface) {
             alt={product.title}
             width={300}
             height={400}
-            className="h-64 w-full object-cover object-center"
+            className="h-72 w-full object-cover object-center md:h-64"
           />
         </div>
         <div className="p-4">

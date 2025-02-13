@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 export default function ContactSection() {
   return (
     <section className="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
-      <div className="container space-y-16">
+      <div className="container mx-auto space-y-16">
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -16,7 +16,7 @@ export default function ContactSection() {
             </p>
           </div>
         </div>
-        <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+        <div className="mx-auto grid max-w-5xl items-center gap-10 px-3 py-12 lg:grid-cols-2 lg:gap-12">
           <div className="space-y-4">
             <div className="space-y-2">
               <h3 className="text-xl font-bold">Información de Contacto</h3>

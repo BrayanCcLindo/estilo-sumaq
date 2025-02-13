@@ -40,7 +40,11 @@ export default function CartItemsModal() {
   return (
     <Sheet open={isOpen} onOpenChange={handleOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="relative">
+        <Button
+          variant="outline"
+          size="icon"
+          className="relative border-none shadow-none"
+        >
           {cartItems.length > 0 ? (
             <>
               <BaggageClaim />
