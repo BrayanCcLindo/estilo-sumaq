@@ -8,6 +8,25 @@ type PageProps<T extends Record<string, string> = {}> = {
   params: Promise<T>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export async function generateMetadata({
+  params,
+}: PageProps<{ handle: string }>) {
+  const resolvedSearchParams = await params;
+
+  const id =
+    typeof resolvedSearchParams.handle === "string"
+      ? resolvedSearchParams.handle
+      : Array.isArray(resolvedSearchParams.handle)
+        ? resolvedSearchParams.handle[0]
+        : undefined;
+
+  return {
+    title: `${id} | Estilo Sumaq`,
+    description: `Revisa cada uno de nuestras categorias de nuestros productos artesanales y escoje tu favorito`,
+  };
+}
+
 export default async function CategoryPage({
   params,
 }: PageProps<{ categoria: string }>) {

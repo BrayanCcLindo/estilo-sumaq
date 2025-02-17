@@ -2,6 +2,14 @@ import SocialShare from "@/components/socialShare";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Estilo Sumaq | Contacto",
+  description:
+    "Estamos aquí para ayudarle. Póngase en contacto con nosotros de nuestros productos artesanales",
+  keywords: ["tienda artesanal", "artesanal", "mochila", "contacto"],
+};
 
 export default function ContactSection() {
   return (
@@ -13,7 +21,7 @@ export default function ContactSection() {
               Contáctanos
             </h2>
             <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Estamos aquí para ayudarle. Póngase en contacto con nosotros duda.
+              Estamos aquí para ayudarle. Póngase en contacto con nosotros
             </p>
           </div>
         </div>

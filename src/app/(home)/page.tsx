@@ -1,10 +1,20 @@
 import { getProducts } from "@/actions/getProducts";
 import ProductCard from "@/components/ProductCard";
+import { Metadata } from "next";
 
-// export const metaData: Metadata = {
-//   title: "PRIMERA PAGINA",
-//   description: "Home page",
-// };
+export const metadata: Metadata = {
+  title: "Estilo Sumaq | Diseños de tradición Peruana",
+  description:
+    "Diseños que inspiran, raíces que perduran, productos artesanales con un toque contemporáneo",
+  keywords: [
+    "tienda",
+    "productos artesanales",
+    "mochilas artesanales",
+    "carteras artesanal",
+    "monederos artesanal",
+    "llaveros artesanal",
+  ],
+};
 export default async function Home() {
   const products = await getProducts();
 

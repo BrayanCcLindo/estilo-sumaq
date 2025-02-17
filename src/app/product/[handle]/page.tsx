@@ -9,6 +9,26 @@ type PageProps<T extends Record<string, string> = {}> = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
+export async function generateMetadata({
+  searchParams,
+}: PageProps<{ handle: string }>) {
+  const resolvedSearchParams = await searchParams;
+
+  const id =
+    typeof resolvedSearchParams.id === "string"
+      ? resolvedSearchParams.id
+      : Array.isArray(resolvedSearchParams.id)
+        ? resolvedSearchParams.id[0]
+        : undefined;
+  const product = await getProductById(id);
+
+  return {
+    title: product?.title,
+    description: product?.description,
+    keywords: [product?.category, product?.title],
+  };
+}
+
 export default async function ProductPage({
   searchParams,
 }: PageProps<{ handle: string }>) {
