@@ -57,7 +57,7 @@ export async function getProductsByCategory(
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("category", category); // Filtro por categoría    // Excluye el producto actual
+    .eq("slugCat", category);
 
   if (error) {
     console.error("Error fetching related products:", error);

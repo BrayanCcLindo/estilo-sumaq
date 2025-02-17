@@ -10,7 +10,7 @@ interface ProductCardInterface {
   index: number;
 }
 function ProductCard({ product, index }: ProductCardInterface) {
-  const discount = product.price + product.price * 0.15;
+  const discount = product.price + product.price * 0.12;
   const [ref, inView] = useInView({
     threshold: 0.2,
   });

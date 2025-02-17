@@ -13,7 +13,6 @@ import { Menu } from "lucide-react";
 import CartItemsModal from "./CartItemsModal";
 import SocialShare from "./socialShare";
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,22 +24,20 @@ import Image from "next/image";
 const categories = [
   {
     categoria: "Bolsos y Mochilas",
-    link: "mochila",
+    link: "bolsos",
   },
-  { categoria: "Accesorios para llevar", link: "cartera" },
-  { categoria: "Joyeria y complementos", link: "monedero" },
-  { categoria: "Organización Personal", link: "personal" },
+  { categoria: "Accesorios para llevar", link: "accesorios" },
+  { categoria: "Joyeria y complementos", link: "joyeria" },
+  { categoria: "Organización Personal", link: "organizacion" },
 ];
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
+  const [dropOpenMobile, setDropOpenMobile] = useState(false);
+  const [dropOpen, setDropOpen] = useState(false);
 
   const handleSelect = () => {
     setOpen(false);
-    if (pathname !== "/") {
-      router.push("/");
-    }
+    setDropOpenMobile(false);
   };
 
   return (
@@ -73,7 +70,10 @@ const Header = () => {
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col space-y-4">
-                <DropdownMenu onOpenChange={setOpen}>
+                <DropdownMenu
+                  open={dropOpenMobile}
+                  onOpenChange={setDropOpenMobile}
+                >
                   <DropdownMenuTrigger className="rounded-md text-left">
                     Categorías
                   </DropdownMenuTrigger>
@@ -84,6 +84,9 @@ const Header = () => {
                         key={category.categoria}
                       >
                         <Link
+                          onClick={() => {
+                            setOpen(false);
+                          }}
                           href={`/categoria/${category.link}`}
                           className="w-full"
                         >
@@ -115,13 +118,18 @@ const Header = () => {
             />
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
-            <DropdownMenu>
+            <DropdownMenu open={dropOpen} onOpenChange={setDropOpen}>
               <DropdownMenuTrigger className="rounded-md p-2">
                 Categorías
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {categories.map((category) => (
-                  <DropdownMenuItem key={category.categoria}>
+                  <DropdownMenuItem
+                    key={category.categoria}
+                    onClick={() => {
+                      setDropOpen(false);
+                    }}
+                  >
                     <Link
                       href={`/categoria/${category.link}`}
                       className="w-full"

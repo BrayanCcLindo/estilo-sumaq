@@ -14,6 +14,8 @@ type TabType = "description" | "features" | "care";
 
 export const ProductView = ({ product }: ProductViewProps) => {
   const [activeTab, setActiveTab] = useState<TabType>("features");
+  const discount = product.price + product.price * 0.12;
+
   const handleWhatsAppClick = () => {
     const phoneNumber = "+51963321483";
     const message = `Hola, estoy interesado en este producto:
@@ -81,7 +83,7 @@ export const ProductView = ({ product }: ProductViewProps) => {
                       })}
                     </span>
                     <span className="text-xl text-gray-400 line-through">
-                      {product.price.toLocaleString("es-PE", {
+                      {discount.toLocaleString("es-PE", {
                         currency: "PEN",
                         style: "currency",
                       })}
@@ -101,13 +103,12 @@ export const ProductView = ({ product }: ProductViewProps) => {
                 {product.description}
               </p>
             </div>
-            <div className="flex items-center justify-end gap-4">
+            <div className="flex flex-col items-start justify-end gap-4 md:flex-row">
               <Button onClick={handleWhatsAppClick}>
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Pedir por WhatsApp
               </Button>
-
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-start">
                 <Button onClick={() => handleQuantityChange(cantidad - 1)}>
                   -
                 </Button>
@@ -115,10 +116,15 @@ export const ProductView = ({ product }: ProductViewProps) => {
                 <Button onClick={() => handleQuantityChange(cantidad + 1)}>
                   +
                 </Button>
+                <Button
+                  onClick={handleAddToCart}
+                  variant="outline"
+                  size="icon"
+                  className="ml-4"
+                >
+                  <ShoppingCart />
+                </Button>
               </div>
-              <Button onClick={handleAddToCart} variant="outline" size="icon">
-                <ShoppingCart />
-              </Button>
             </div>
           </div>
         </div>

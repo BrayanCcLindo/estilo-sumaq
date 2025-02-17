@@ -15,6 +15,7 @@ import {
 import { useShoppingCart } from "@/hook/useShoppingCart";
 import Image from "next/image";
 import { generateWhatsAppMessage, getWhatsAppLink } from "@/utils/wspMessage";
+import Link from "next/link";
 
 export default function CartItemsModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,34 +71,51 @@ export default function CartItemsModal() {
           <SheetTitle>Tu carrito</SheetTitle>
         </SheetHeader>
         <div className="flex-grow overflow-auto py-4">
-          {items?.map((item) => (
-            <div
-              key={item.id}
-              className="group relative flex gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-gray-300"
-            >
-              <Image
-                src={item.imagen}
-                alt={item.title}
-                width={300}
-                height={400}
-                className="h-24 w-24 rounded-md object-cover"
-              />
-              <div className="flex-1">
-                <h3 className="text-lg font-medium">{item.title}</h3>
-                <p className="text-sm font-semibold text-gray-500">
-                  cantidad : {item.quantity}
-                </p>
-                <p className="font-semibold text-gray-500">S/{item.price}</p>
-              </div>
-              {/* Remove button that appears on hover */}
-              <button
-                onClick={() => removeItem(item.id)}
-                className="absolute right-2 top-2 rounded-full bg-white p-2 opacity-0 transition-opacity hover:bg-red-50 group-hover:opacity-100"
+          {items?.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="group relative flex gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-gray-300"
               >
-                <Trash2 size={20} className="text-red-500" />
-              </button>
-            </div>
-          ))}
+                <Image
+                  src={item.imagen}
+                  alt={item.title}
+                  width={300}
+                  height={400}
+                  className="h-24 w-24 rounded-md object-cover"
+                />
+                <div className="flex-1">
+                  <Link
+                    onClick={() => {
+                      setIsOpen(false);
+                    }}
+                    href={`/product/${item.slug}?id=${item.id}`}
+                  >
+                    <h3 className="text-lg font-medium hover:text-gray-500">
+                      {item.title}
+                    </h3>
+                  </Link>
+                  <p className="text-sm font-semibold text-gray-500">
+                    cantidad : {item.quantity}
+                  </p>
+
+                  <span className="font-bold text-gray-900">
+                    {item.price.toLocaleString("es-PE", {
+                      currency: "PEN",
+                      style: "currency",
+                    })}
+                  </span>
+                </div>
+                {/* Remove button that appears on hover */}
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className="absolute right-2 top-2 rounded-full bg-white p-2 opacity-0 transition-opacity hover:bg-red-50 group-hover:opacity-100"
+                >
+                  <Trash2 size={20} className="text-red-500" />
+                </button>
+              </div>
+            );
+          })}
         </div>
         <div className="mb-4 flex items-center justify-between">
           <span className="text-lg font-medium">Total</span>
