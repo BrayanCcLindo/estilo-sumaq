@@ -4,6 +4,7 @@ import { MessageCircle, ShoppingCart, Tag } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useShoppingCart } from "@/hook/useShoppingCart";
+import { toast } from "sonner";
 
 interface ProductViewProps {
   product: Product;
@@ -14,7 +15,7 @@ type TabType = "description" | "features" | "care";
 export const ProductView = ({ product }: ProductViewProps) => {
   const [activeTab, setActiveTab] = useState<TabType>("features");
   const handleWhatsAppClick = () => {
-    const phoneNumber = "963321483";
+    const phoneNumber = "+51963321483";
     const message = `Hola, estoy interesado en este producto:
   *${product.title}*
   Precio: S/ ${product.price}`;
@@ -22,7 +23,23 @@ export const ProductView = ({ product }: ProductViewProps) => {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
   };
-  const { addItem } = useShoppingCart();
+  const { addItem, updateQuantity } = useShoppingCart();
+  const [cantidad, setCantidad] = useState(1);
+
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity > 0) {
+      setCantidad(newQuantity);
+      updateQuantity(product.id, newQuantity);
+    }
+  };
+
+  const handleAddToCart = () => {
+    addItem(product, cantidad);
+    toast.success("Agrego un producto al carrito", {
+      duration: 3000,
+      position: "top-center",
+    });
+  };
 
   return (
     <div className="space-y-16">
@@ -34,10 +51,10 @@ export const ProductView = ({ product }: ProductViewProps) => {
               src={product.imagen}
               alt={product.title}
               width={400}
-              height={500}
+              height={400}
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            {true && (
+            {product.offer && (
               <div className="absolute right-4 top-4">
                 <div className="flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-medium text-white">
                   <Tag className="mr-2 h-4 w-4" />
@@ -48,23 +65,34 @@ export const ProductView = ({ product }: ProductViewProps) => {
           </div>
           <div className="flex h-[550px] flex-1 flex-col justify-between p-8">
             <div className="flex flex-col gap-4">
-              <p className="mb-2 text-sm text-gray-500">{product.category}</p>
+              <p className="mb-2 text-sm capitalize text-gray-500">
+                {product.category.toUpperCase()}
+              </p>
               <h1 className="mb-4 text-3xl font-bold text-gray-900">
                 {product.title}
               </h1>
               <div className="mb-4 flex items-baseline">
-                {true ? (
+                {product.offer ? (
                   <>
                     <span className="mr-3 text-3xl font-bold text-red-500">
-                      ${product.price}
+                      {product.price.toLocaleString("es-PE", {
+                        currency: "PEN",
+                        style: "currency",
+                      })}
                     </span>
                     <span className="text-xl text-gray-400 line-through">
-                      ${product.price}
+                      {product.price.toLocaleString("es-PE", {
+                        currency: "PEN",
+                        style: "currency",
+                      })}
                     </span>
                   </>
                 ) : (
                   <span className="text-3xl font-bold text-gray-900">
-                    ${product.price}
+                    {product.price.toLocaleString("es-PE", {
+                      currency: "PEN",
+                      style: "currency",
+                    })}
                   </span>
                 )}
               </div>
@@ -74,18 +102,21 @@ export const ProductView = ({ product }: ProductViewProps) => {
               </p>
             </div>
             <div className="flex items-center justify-end gap-4">
-              <Button
-                onClick={handleWhatsAppClick}
-                // className="flex w-full flex-1 items-center justify-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 font-medium text-white transition-colors"
-              >
+              <Button onClick={handleWhatsAppClick}>
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Pedir por WhatsApp
               </Button>
-              <Button
-                onClick={() => addItem(product)}
-                variant="outline"
-                size="icon"
-              >
+
+              <div className="flex items-center justify-center">
+                <Button onClick={() => handleQuantityChange(cantidad - 1)}>
+                  -
+                </Button>
+                <span className="bg-gray-100 px-4 py-1">{cantidad}</span>
+                <Button onClick={() => handleQuantityChange(cantidad + 1)}>
+                  +
+                </Button>
+              </div>
+              <Button onClick={handleAddToCart} variant="outline" size="icon">
                 <ShoppingCart />
               </Button>
             </div>
@@ -100,8 +131,8 @@ export const ProductView = ({ product }: ProductViewProps) => {
                 onClick={() => setActiveTab("features")}
                 className={`border-b-2 px-1 pb-4 text-lg font-medium ${
                   activeTab === "features"
-                    ? "border-purple-500 text-purple-600"
-                    : "border-transparent text-slate-900 hover:border-slate-900 hover:text-slate-900"
+                    ? "border-slate-900 text-slate-900"
+                    : "border-transparent text-gray-600 hover:border-gray-600 hover:text-gray-600"
                 }`}
               >
                 Características
@@ -110,8 +141,8 @@ export const ProductView = ({ product }: ProductViewProps) => {
                 onClick={() => setActiveTab("care")}
                 className={`border-b-2 px-1 pb-4 text-lg font-medium ${
                   activeTab === "care"
-                    ? "border-purple-500 text-purple-600"
-                    : "border-transparent text-slate-900 hover:border-slate-900 hover:text-slate-900"
+                    ? "border-slate-900 text-slate-900"
+                    : "border-transparent text-gray-600 hover:border-gray-600 hover:text-gray-600"
                 }`}
               >
                 Cuidados

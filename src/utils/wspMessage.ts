@@ -4,8 +4,8 @@ export function generateWhatsAppMessage(cartItems: Product[]): string {
   let total = 0;
 
   cartItems.forEach((item) => {
-    const itemTotal = parseInt(item.price) * item.quantity;
-    message += `${item.title} x${item.quantity} - $${itemTotal.toFixed(2)}\n`;
+    const itemTotal = item.price * item.quantity;
+    message += `${item.title} x${item.quantity} - S/. ${itemTotal.toFixed(2)}\n`;
     total += itemTotal;
   });
 

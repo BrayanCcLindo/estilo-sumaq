@@ -2,13 +2,11 @@
 
 import { supabase } from "@/lib/supabase";
 
-export async function getProducts(category?: string): Promise<Product[]> {
-  let query = supabase.from("products").select("*");
-  if (category && category !== "Todos") {
-    query = query.eq("category", category);
-  }
-
-  const { data, error } = await query;
+export async function getProducts(): Promise<Product[]> {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("offer", true);
 
   if (error) {
     console.error("Error fetching products:", error);
@@ -44,6 +42,22 @@ export async function getRelatedProducts(
     // .eq("category", category)
     .neq("id", excludeId)
     .limit(4);
+
+  if (error) {
+    console.error("Error fetching related products:", error);
+    return [];
+  }
+
+  return data;
+}
+
+export async function getProductsByCategory(
+  category: string,
+): Promise<Product[] | null> {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("category", category); // Filtro por categoría    // Excluye el producto actual
 
   if (error) {
     console.error("Error fetching related products:", error);

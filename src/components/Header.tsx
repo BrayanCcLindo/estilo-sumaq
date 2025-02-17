@@ -10,35 +10,33 @@ import {
 } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
-
 import CartItemsModal from "./CartItemsModal";
 import SocialShare from "./socialShare";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-import { useCategoryStore } from "@/hook/useCategoryProduct";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 const categories = [
-  "Todos",
-  "Mochila",
-  "Cartera",
-  "Monedero",
-  "Pack Artesanal",
+  {
+    categoria: "Bolsos y Mochilas",
+    link: "mochila",
+  },
+  { categoria: "Accesorios para llevar", link: "cartera" },
+  { categoria: "Joyeria y complementos", link: "monedero" },
+  { categoria: "Organización Personal", link: "personal" },
 ];
 const Header = () => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
-  const setCategory = useCategoryStore((state) => state.setCategory);
-  const handleSelect = (value: string) => {
-    setCategory(value);
+  const handleSelect = () => {
     setOpen(false);
     if (pathname !== "/") {
       router.push("/");
@@ -47,7 +45,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
-      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 py-8 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -65,34 +63,42 @@ const Header = () => {
                     }}
                     className="mr-6 flex items-center space-x-2 md:hidden"
                   >
-                    <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-xl font-bold text-transparent">
-                      SUMAQ
-                    </span>
+                    <Image
+                      width={300}
+                      height={300}
+                      src={"/logo2.png"}
+                      alt="logo"
+                    />
                   </Link>
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col space-y-4">
-                <Select
-                  onValueChange={handleSelect}
-                  // defaultValue={selectedCategory}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Categoria" />
-                  </SelectTrigger>
-                  <SelectContent>
+                <DropdownMenu onOpenChange={setOpen}>
+                  <DropdownMenuTrigger className="rounded-md text-left">
+                    Categorías
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
                     {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
-                      </SelectItem>
+                      <DropdownMenuItem
+                        onClick={handleSelect}
+                        key={category.categoria}
+                      >
+                        <Link
+                          href={`/categoria/${category.link}`}
+                          className="w-full"
+                        >
+                          {category.categoria}
+                        </Link>
+                      </DropdownMenuItem>
                     ))}
-                  </SelectContent>
-                </Select>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Link
                   onClick={() => {
                     setOpen(false);
                   }}
                   href="/contact"
-                  className="transition-colors hover:text-purple-600"
+                  className="transition-colors"
                 >
                   Contáctanos
                 </Link>
@@ -101,30 +107,32 @@ const Header = () => {
           </Sheet>
 
           <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex">
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-xl font-bold text-transparent">
-              SUMAQ
-            </span>
+            <Image
+              width={130}
+              height={130}
+              src={"/logo-sumaq.png"}
+              alt="logo"
+            />
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
-            <Select
-              onValueChange={setCategory}
-              // defaultValue={selectedCategory}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Categoria" />
-              </SelectTrigger>
-              <SelectContent>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="rounded-md p-2">
+                Categorías
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
                 {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </SelectItem>
+                  <DropdownMenuItem key={category.categoria}>
+                    <Link
+                      href={`/categoria/${category.link}`}
+                      className="w-full"
+                    >
+                      {category.categoria}
+                    </Link>
+                  </DropdownMenuItem>
                 ))}
-              </SelectContent>
-            </Select>
-            <Link
-              href="/contact"
-              className="transition-colors hover:text-purple-600"
-            >
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Link href="/contact" className="transition-colors">
               Contáctanos
             </Link>
           </nav>

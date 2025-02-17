@@ -1,4 +1,5 @@
 "use client";
+import CategoryGrid from "@/components/CategorySection";
 import FashionBackground from "@/components/fashonHero";
 import { useRef } from "react";
 
@@ -16,38 +17,13 @@ export default function HomeLayout({
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* <section className="relative h-[600px]">
-        <Image
-          src="/home/main-image.avif"
-          alt="Artesanías"
-          className="object-cover"
-          fill
-          priority
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="mb-4 text-4xl font-bold md:text-6xl">
-              Prendas Artesanales Únicas
-            </h1>
-            <p className="mx-auto mb-8 max-w-2xl px-4 text-lg md:text-xl">
-              Descubre nuestra colección de prendas hechas a mano con amor y
-              dedicación
-            </p>
-            <Link href="/products">
-              <Button size="lg" className="text-lg">
-                Ver Productos
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section> */}
-      <FashionBackground sectionRef={sectionRef} />
-
+      <FashionBackground />
       <div
         ref={sectionRef}
-        className="container mx-auto flex max-w-7xl flex-wrap py-8"
+        className="container mx-auto flex max-w-7xl flex-wrap px-2 py-8"
       >
+        <CategoryGrid />
+        <h2 className="mb-4 text-center text-2xl font-bold">PROMOCIONES</h2>
         {children}
       </div>
     </div>

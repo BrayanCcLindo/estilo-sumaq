@@ -18,8 +18,8 @@ type Product = {
   category: string;
   description: string;
   published: boolean;
-  price: string;
-  discount: string;
+  price: number;
+  offer: boolean;
   rating: number;
   id: string;
   imagen: string;

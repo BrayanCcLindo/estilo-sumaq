@@ -19,10 +19,10 @@ import { generateWhatsAppMessage, getWhatsAppLink } from "@/utils/wspMessage";
 export default function CartItemsModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const cartItems = useShoppingCart((state) => state.items);
+  const { items } = useShoppingCart();
   const removeItem = useShoppingCart((state) => state.removeItem);
 
-  const hasItems = cartItems.length > 0;
+  const hasItems = items.length > 0;
 
   const handleOpen = () => {
     if (hasItems) {
@@ -31,14 +31,14 @@ export default function CartItemsModal() {
   };
   const handleWhatsAppOrder = () => {
     setIsLoading(true);
-    const message = generateWhatsAppMessage(cartItems);
+    const message = generateWhatsAppMessage(items);
     const phoneNumber = "922446911";
     const whatsappLink = getWhatsAppLink(message, phoneNumber);
     window.open(whatsappLink, "_blank");
     setIsLoading(false);
   };
-  const total = cartItems.reduce(
-    (sum, item) => sum + parseInt(item.price) * item.quantity,
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
     0,
   );
 
@@ -50,11 +50,11 @@ export default function CartItemsModal() {
           size="icon"
           className="relative border-none bg-transparent shadow-none"
         >
-          {cartItems.length > 0 ? (
+          {items.length > 0 ? (
             <>
               <BaggageClaim />
               <span className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                {cartItems.length}
+                {items.length}
               </span>
             </>
           ) : (
@@ -70,7 +70,7 @@ export default function CartItemsModal() {
           <SheetTitle>Tu carrito</SheetTitle>
         </SheetHeader>
         <div className="flex-grow overflow-auto py-4">
-          {cartItems?.map((item) => (
+          {items?.map((item) => (
             <div
               key={item.id}
               className="group relative flex gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-gray-300"
@@ -84,13 +84,10 @@ export default function CartItemsModal() {
               />
               <div className="flex-1">
                 <h3 className="text-lg font-medium">{item.title}</h3>
-
-                <p className="font-semibold text-gray-800">${item.price}</p>
-                <div className="mt-2 flex items-center gap-2">
-                  <span className="text-sm text-gray-600">
-                    Quantity: {item.quantity}
-                  </span>
-                </div>
+                <p className="text-sm font-semibold text-gray-500">
+                  cantidad : {item.quantity}
+                </p>
+                <p className="font-semibold text-gray-500">S/{item.price}</p>
               </div>
               {/* Remove button that appears on hover */}
               <button
@@ -104,7 +101,12 @@ export default function CartItemsModal() {
         </div>
         <div className="mb-4 flex items-center justify-between">
           <span className="text-lg font-medium">Total</span>
-          <span className="text-2xl font-bold">S/.{total}</span>
+          <span className="text-2xl font-bold">
+            {total.toLocaleString("es-PE", {
+              currency: "PEN",
+              style: "currency",
+            })}
+          </span>
         </div>
         <SheetFooter className="mt-auto">
           <Button
@@ -115,7 +117,12 @@ export default function CartItemsModal() {
             {isLoading ? "Enviando..." : "Pedir por WhatsApp"}
           </Button>
         </SheetFooter>
-        <SheetClose className="absolute right-5 top-5">
+        <SheetClose
+          onClick={() => {
+            setIsOpen(false);
+          }}
+          className="absolute right-5 top-5"
+        >
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </SheetClose>

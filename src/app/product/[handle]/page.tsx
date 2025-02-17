@@ -10,13 +10,9 @@ type PageProps<T extends Record<string, string> = {}> = {
 };
 
 export default async function ProductPage({
-  params,
   searchParams,
 }: PageProps<{ handle: string }>) {
-  const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-
-  console.log(resolvedParams);
 
   const id =
     typeof resolvedSearchParams.id === "string"

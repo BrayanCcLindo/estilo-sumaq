@@ -1,6 +1,7 @@
 import SocialShare from "@/components/socialShare";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function ContactSection() {
   return (
@@ -26,7 +27,7 @@ export default function ContactSection() {
               </p>
             </div>
             <div className="space-y-2">
-              <a href="tel:+51922446911" className="flex items-center">
+              <a href="tel:+51963321483" className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -43,7 +44,10 @@ export default function ContactSection() {
                 </svg>
                 (+51) 922 446 911
               </a>
-              <a href="mailto:anyela@gmail.com" className="flex items-center">
+              <a
+                href="mailto:anyelaga19@gmail.com"
+                className="flex items-center"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -59,7 +63,7 @@ export default function ContactSection() {
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
-                anyela@gmail.com
+                anyelaga19@gmail.com
               </a>
             </div>
             <div className="flex items-center justify-start">
@@ -83,6 +87,7 @@ export default function ContactSection() {
             </div>
             <div className="space-y-2">
               <label htmlFor="message">Mensaje</label>
+              <Textarea />
             </div>
             <Button className="w-full">Enviar Mensaje</Button>
           </div>

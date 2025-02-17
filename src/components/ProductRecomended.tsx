@@ -1,5 +1,3 @@
-import { Button } from "./ui/button";
-import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 
 async function ProductRecomended({
@@ -16,17 +14,11 @@ async function ProductRecomended({
               <h2 className="text-3xl font-bold text-gray-900">
                 Productos Relacionados
               </h2>
-              <Button
-                variant="ghost"
-                className="hidden items-center gap-2 sm:flex"
-              >
-                Ver más <ArrowRight className="h-4 w-4" />
-              </Button>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {relatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+              {relatedProducts.map((product, index) => (
+                <ProductCard key={product.id} product={product} index={index} />
               ))}
             </div>
           </div>
