@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -32,6 +33,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="google-site-verification=O4R2XjBEtnuUzALGf1T4aM3R7fP2uTMWrQTpA7DuAGc"
+        />
+      </Head>
       <body className={playfair.className}>
         <Toaster
           richColors
