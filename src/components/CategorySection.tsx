@@ -92,7 +92,7 @@ export default function CategoryGrid() {
                 <h2 className="mb-4 text-center text-2xl font-bold">
                   {category.title}
                 </h2>
-                <button className="flex items-center space-x-2 rounded-full bg-indigo-600 px-6 py-2 text-white transition-colors duration-300 group-hover:bg-indigo-700">
+                <button className="flex items-center space-x-2 rounded-full bg-[#C67C4E] px-6 py-2 text-white transition-colors duration-300">
                   <span>Ver productos</span>
                   <svg
                     className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"

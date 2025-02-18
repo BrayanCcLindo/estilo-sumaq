@@ -100,7 +100,7 @@ const Header = () => {
                   onClick={() => {
                     setOpen(false);
                   }}
-                  href="/contact"
+                  href="/contacto"
                   className="transition-colors"
                 >
                   Contáctanos
@@ -140,7 +140,7 @@ const Header = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link href="/contact" className="transition-colors">
+            <Link href="/contacto" className="transition-colors">
               Contáctanos
             </Link>
           </nav>

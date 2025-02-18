@@ -1,7 +1,5 @@
+import ContactForm from "@/components/contactForm";
 import SocialShare from "@/components/socialShare";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -78,27 +76,7 @@ export default function ContactSection() {
               <SocialShare />
             </div>
           </div>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label htmlFor="first-name">Nombre</label>
-                <Input id="first-name" />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="last-name">Apellido</label>
-                <Input id="last-name" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="email">Correo</label>
-              <Input id="email" />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="message">Mensaje</label>
-              <Textarea />
-            </div>
-            <Button className="w-full">Enviar Mensaje</Button>
-          </div>
+          <ContactForm />
         </div>
       </div>
     </section>

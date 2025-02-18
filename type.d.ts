@@ -26,3 +26,10 @@ type Product = {
   detalles: ProductDetail[];
   quantity: number;
 };
+
+type contactType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  message: string;
+};
