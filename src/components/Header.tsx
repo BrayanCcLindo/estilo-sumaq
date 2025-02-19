@@ -24,11 +24,11 @@ import Image from "next/image";
 const categories = [
   {
     categoria: "Bolsos y Mochilas",
-    link: "bolsos",
+    link: "bolsos-y-mochilas",
   },
-  { categoria: "Accesorios para llevar", link: "accesorios" },
-  { categoria: "Joyeria y complementos", link: "joyeria" },
-  { categoria: "Organización Personal", link: "organizacion" },
+  { categoria: "Accesorios para llevar", link: "accesorios-para-llevar" },
+  { categoria: "Joyeria y complementos", link: "joyeria-y-complementos" },
+  { categoria: "Organización Personal", link: "organizacion-personal" },
 ];
 const Header = () => {
   const [open, setOpen] = useState(false);

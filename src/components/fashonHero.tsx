@@ -32,13 +32,13 @@ export default function FashionBackground() {
     <main className="relative min-h-screen">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/portada1.jpeg"
+          src="/home/main-portada.jpg"
           alt="Elegant background"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-white sm:px-6 lg:px-8">
@@ -50,7 +50,7 @@ export default function FashionBackground() {
         </p>
         <button
           onClick={scrollToNextSection}
-          className="transform rounded-full bg-white px-6 py-3 text-lg font-semibold text-black transition duration-300 ease-in-out hover:scale-105 hover:bg-opacity-90"
+          className="transform rounded-full bg-[#EAD7B7] px-6 py-3 text-lg font-semibold text-black transition duration-300 ease-in-out hover:scale-105 hover:bg-opacity-90"
         >
           Explorar Categorias
         </button>

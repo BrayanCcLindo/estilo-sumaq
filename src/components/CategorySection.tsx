@@ -10,29 +10,29 @@ const categories = [
   {
     id: "mochilas",
     title: "Bolsos y Mochilas",
-    image: "/portada/portada-bags.jpeg",
-    href: "/categoria/bolsos",
+    image: "/portada/portada-bags.jpg",
+    href: "/categoria/bolsos-y-mochilas",
     className: "rounded-br-[80px]",
   },
   {
     id: "accesorios",
     title: "Accesorios para llevar",
-    image: "/portada/portada-monedero.jpeg",
-    href: "/categoria/accesorios",
+    image: "/portada/portada-monedero.jpg",
+    href: "/categoria/accesorios-para-llevar",
     className: "rounded-bl-[80px]",
   },
   {
     id: "joyeria",
     title: "Joyeria y complementos",
-    image: "/portada/portada-joyas.jpeg",
-    href: "/categoria/joyeria",
+    image: "/portada/portada-joyas.jpg",
+    href: "/categoria/joyeria-y-complementos",
     className: "rounded-tr-[80px]",
   },
   {
     id: "organizacion",
     title: "Organización Personal",
-    image: "/portada/portada-organizacion.jpeg",
-    href: "/categoria/organizacion",
+    image: "/portada/portada-organizacion.jpg",
+    href: "/categoria/organizacion-personal",
     className: "rounded-tl-[80px]",
   },
 ];
@@ -80,11 +80,11 @@ export default function CategoryGrid() {
                 `group relative h-[350px] cursor-pointer overflow-hidden ${category.className}`,
               )}
             >
-              <div className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/40" />
+              <div className="absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/30" />
               <Image
                 src={category.image}
                 alt={category.title}
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full object-cover object-center"
                 width={300}
                 height={300}
               />
@@ -92,7 +92,7 @@ export default function CategoryGrid() {
                 <h2 className="mb-4 text-center text-2xl font-bold">
                   {category.title}
                 </h2>
-                <button className="flex items-center space-x-2 rounded-full bg-[#C67C4E] px-6 py-2 text-white transition-colors duration-300">
+                <button className="flex items-center space-x-2 rounded-full bg-[#EAD7B7] px-6 py-2 font-semibold text-black transition-colors duration-300">
                   <span>Ver productos</span>
                   <svg
                     className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"

@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { BaggageClaim, ShoppingCart, Trash2, X } from "lucide-react";
+import {
+  AlertCircle,
+  BaggageClaim,
+  ShoppingCart,
+  Trash2,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -16,6 +22,7 @@ import { useShoppingCart } from "@/hook/useShoppingCart";
 import Image from "next/image";
 import { generateWhatsAppMessage, getWhatsAppLink } from "@/utils/wspMessage";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function CartItemsModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +35,13 @@ export default function CartItemsModal() {
   const handleOpen = () => {
     if (hasItems) {
       setIsOpen(!isOpen);
+    } else {
+      toast.message("No tiene productos en el carrito", {
+        duration: 3000,
+        position: "top-center",
+        icon: <AlertCircle />,
+        className: "bg-[#D87C3A] text-white border-none",
+      });
     }
   };
   const handleWhatsAppOrder = () => {
