@@ -1,10 +1,13 @@
 "use client";
-import Image from "next/image";
-import { MessageCircle, ShoppingCart, Tag } from "lucide-react";
+
+import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useShoppingCart } from "@/hook/useShoppingCart";
 import { toast } from "sonner";
+import ProductMagnifier from "./ZoomImage";
+import ProductStars from "./ProductStars";
+import FeaturesSection from "./FeaturesSection";
 
 interface ProductViewProps {
   product: Product;
@@ -16,15 +19,15 @@ export const ProductView = ({ product }: ProductViewProps) => {
   const [activeTab, setActiveTab] = useState<TabType>("features");
   const discount = product.price + product.price * 0.12;
 
-  const handleWhatsAppClick = () => {
-    const phoneNumber = "+51963321483";
-    const message = `Hola, estoy interesado en este producto:
-  *${product.title}*
-  Precio: S/ ${product.price}`;
+  // const handleWhatsAppClick = () => {
+  //   const phoneNumber = "+51963321483";
+  //   const message = `Hola, estoy interesado en este producto:
+  // *${product.title}*
+  // Precio: S/ ${product.price}`;
 
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
-  };
+  //   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  //   window.open(whatsappUrl, "_blank");
+  // };
   const { addItem, updateQuantity } = useShoppingCart();
   const [cantidad, setCantidad] = useState(1);
 
@@ -48,7 +51,7 @@ export const ProductView = ({ product }: ProductViewProps) => {
       <div className="overflow-hidden rounded-xl bg-white shadow-sm">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Imagen del producto */}
-          <div className="relative h-[500px] lg:h-full">
+          {/* <div className="relative h-[500px] lg:h-full">
             <Image
               src={product.imagen}
               alt={product.title}
@@ -64,8 +67,13 @@ export const ProductView = ({ product }: ProductViewProps) => {
                 </div>
               </div>
             )}
-          </div>
-          <div className="flex h-[550px] flex-1 flex-col justify-between p-8">
+          </div> */}
+          <ProductMagnifier
+            imageUrl={product.imagen}
+            title={product.title}
+            offer={product.offer}
+          />
+          <div className="flex flex-1 flex-col justify-between p-8">
             <div className="flex flex-col gap-4">
               <p className="mb-2 text-sm capitalize text-gray-500">
                 {product.category.toUpperCase()}
@@ -98,33 +106,43 @@ export const ProductView = ({ product }: ProductViewProps) => {
                   </span>
                 )}
               </div>
-
+              <ProductStars rating={product.rating} />
               <p className="mb-6 leading-relaxed text-gray-600">
                 {product.description}
               </p>
             </div>
-            <div className="flex flex-col items-start justify-end gap-4 md:flex-row">
-              <Button onClick={handleWhatsAppClick}>
+            <div className="flex flex-col items-end justify-center gap-4">
+              {/* <Button onClick={handleWhatsAppClick}>
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Pedir por WhatsApp
-              </Button>
-              <div className="flex items-center justify-start">
-                <Button onClick={() => handleQuantityChange(cantidad - 1)}>
-                  -
-                </Button>
-                <span className="bg-gray-100 px-4 py-1">{cantidad}</span>
-                <Button onClick={() => handleQuantityChange(cantidad + 1)}>
-                  +
-                </Button>
+              </Button> */}
+              <div className="justify- flex w-full items-center">
+                <div className="flex rounded-lg">
+                  <Button
+                    className="rounded-r-none"
+                    onClick={() => handleQuantityChange(cantidad - 1)}
+                  >
+                    -
+                  </Button>
+                  <span className="px-4 py-1">{cantidad}</span>
+                  <Button
+                    className="rounded-l-none"
+                    onClick={() => handleQuantityChange(cantidad + 1)}
+                  >
+                    +
+                  </Button>
+                </div>
                 <Button
                   onClick={handleAddToCart}
                   variant="outline"
                   size="icon"
-                  className="ml-4"
+                  className="ml-4 h-full w-full px-4 py-2"
                 >
                   <ShoppingCart />
+                  <span>Agregar al carrito</span>
                 </Button>
               </div>
+              <FeaturesSection />
             </div>
           </div>
         </div>

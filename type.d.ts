@@ -33,3 +33,15 @@ type contactType = {
   email: string;
   message: string;
 };
+
+type CheckoutFormData = {
+  fullName: string;
+  documentId: string;
+  region: string;
+  district: string;
+  address: string;
+  phone: string;
+  email: string;
+  createdAt: string;
+  uniqueCode: string;
+};

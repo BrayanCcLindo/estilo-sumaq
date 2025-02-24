@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Estilo Sumaq | Contacto",
+  title: "Contacto | Estilo Sumaq",
   description:
     "Estamos aquí para ayudarle. Póngase en contacto con nosotros de nuestros productos artesanales",
   keywords: ["tienda artesanal", "artesanal", "mochila", "contacto"],
@@ -43,8 +43,8 @@ export default function ContactSection() {
               <ContactCard
                 icon={<Mail className="h-5 w-5 text-blue-500" />}
                 title="Email"
-                value="brayancclindo@gmail.com"
-                href="mailto:brayancclindo@gmail.com"
+                value="sumaqestilo@gmail.com"
+                href="mailto:sumaqestilo@gmail.com"
               />
               <ContactCard
                 icon={<Phone className="h-5 w-5 text-green-500" />}

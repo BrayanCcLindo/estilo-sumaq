@@ -20,13 +20,13 @@ import {
 } from "@/components/ui/sheet";
 import { useShoppingCart } from "@/hook/useShoppingCart";
 import Image from "next/image";
-import { generateWhatsAppMessage, getWhatsAppLink } from "@/utils/wspMessage";
+// import { generateWhatsAppMessage, getWhatsAppLink } from "@/utils/wspMessage";
 import Link from "next/link";
 import { toast } from "sonner";
 
 export default function CartItemsModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const { items } = useShoppingCart();
   const removeItem = useShoppingCart((state) => state.removeItem);
 
@@ -44,14 +44,14 @@ export default function CartItemsModal() {
       });
     }
   };
-  const handleWhatsAppOrder = () => {
-    setIsLoading(true);
-    const message = generateWhatsAppMessage(items);
-    const phoneNumber = "922446911";
-    const whatsappLink = getWhatsAppLink(message, phoneNumber);
-    window.open(whatsappLink, "_blank");
-    setIsLoading(false);
-  };
+  // const handleWhatsAppOrder = () => {
+  //   setIsLoading(true);
+  //   const message = generateWhatsAppMessage(items);
+  //   const phoneNumber = "922446911";
+  //   const whatsappLink = getWhatsAppLink(message, phoneNumber);
+  //   window.open(whatsappLink, "_blank");
+  //   setIsLoading(false);
+  // };
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -99,22 +99,18 @@ export default function CartItemsModal() {
                   className="h-24 w-24 rounded-md object-cover"
                 />
                 <div className="flex-1">
-                  <Link
-                    onClick={() => {
-                      setIsOpen(false);
-                    }}
-                    href={`/product/${item.slug}?id=${item.id}`}
-                  >
-                    <h3 className="text-lg font-medium hover:text-gray-500">
-                      {item.title}
-                    </h3>
-                  </Link>
-                  <p className="text-sm font-semibold text-gray-500">
-                    cantidad : {item.quantity}
+                  <h3 className="text-lg font-medium">{item.title}</h3>
+
+                  <p className="text-sm font-bold text-gray-500">
+                    {item.quantity} x{" "}
+                    {item.price.toLocaleString("es-PE", {
+                      currency: "PEN",
+                      style: "currency",
+                    })}
                   </p>
 
                   <span className="font-bold text-gray-900">
-                    {item.price.toLocaleString("es-PE", {
+                    {(item.quantity * item.price).toLocaleString("es-PE", {
                       currency: "PEN",
                       style: "currency",
                     })}
@@ -141,13 +137,14 @@ export default function CartItemsModal() {
           </span>
         </div>
         <SheetFooter className="mt-auto">
-          <Button
-            className="w-full"
-            onClick={handleWhatsAppOrder}
-            disabled={isLoading}
+          <Link
+            onClick={() => setIsOpen(false)}
+            href="/payment"
+            className="w-full border border-neutral-900 bg-neutral-900 py-3 text-center font-bold tracking-wider text-white hover:border hover:border-neutral-900 hover:bg-white hover:text-neutral-900"
+            // onClick={handleWhatsAppOrder}
           >
-            {isLoading ? "Enviando..." : "Pedir por WhatsApp"}
-          </Button>
+            FINALIZAR COMPRA
+          </Link>
         </SheetFooter>
         <SheetClose
           onClick={() => {
