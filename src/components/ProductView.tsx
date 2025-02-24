@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Tag } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useShoppingCart } from "@/hook/useShoppingCart";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import ProductMagnifier from "./ZoomImage";
 import ProductStars from "./ProductStars";
 import FeaturesSection from "./FeaturesSection";
+import Image from "next/image";
 
 interface ProductViewProps {
   product: Product;
@@ -51,13 +52,13 @@ export const ProductView = ({ product }: ProductViewProps) => {
       <div className="overflow-hidden rounded-xl bg-white shadow-sm">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Imagen del producto */}
-          {/* <div className="relative h-[500px] lg:h-full">
+          <div className="relative md:hidden md:h-full">
             <Image
               src={product.imagen}
               alt={product.title}
               width={400}
               height={400}
-              className="absolute inset-0 h-full w-full object-cover object-center"
+              className="h-full w-full object-cover object-center"
             />
             {product.offer && (
               <div className="absolute right-4 top-4">
@@ -67,7 +68,7 @@ export const ProductView = ({ product }: ProductViewProps) => {
                 </div>
               </div>
             )}
-          </div> */}
+          </div>
           <ProductMagnifier
             imageUrl={product.imagen}
             title={product.title}

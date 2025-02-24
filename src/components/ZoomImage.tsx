@@ -47,7 +47,7 @@ export default function ProductMagnifier({
   };
 
   return (
-    <Card className="group relative">
+    <Card className="group relative hidden md:block">
       <div
         className="relative aspect-square h-full w-full overflow-hidden"
         onMouseEnter={() => setShowMagnifier(true)}

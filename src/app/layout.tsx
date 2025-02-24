@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
+import { WhatsAppButton } from "@/components/whatsAppButton";
+import ScrollingBanner from "@/components/discountBanner";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -50,7 +52,10 @@ export default function RootLayout({
           position="top-right"
         />
         <Header />
+        <ScrollingBanner />
         {children}
+        <WhatsAppButton phoneNumber="+51963321483" />
+
         <Footer />
       </body>
     </html>

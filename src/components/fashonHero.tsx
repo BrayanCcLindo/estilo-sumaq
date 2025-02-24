@@ -29,7 +29,7 @@ export default function FashionBackground() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-[90vh]">
       <div className="absolute inset-0 z-0">
         <Image
           src="/home/main-portada.jpg"
@@ -41,7 +41,7 @@ export default function FashionBackground() {
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-white sm:px-6 lg:px-8">
+      <div className="relative z-10 flex min-h-[90vh] flex-col items-center justify-center px-4 text-white sm:px-6 lg:px-8">
         <h1 className="mb-4 text-center text-4xl font-bold sm:text-5xl md:text-6xl">
           Diseños que inspiran, raíces que perduran{" "}
         </h1>
