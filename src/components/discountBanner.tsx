@@ -3,7 +3,7 @@
 export default function ScrollingBanner() {
   return (
     <div className="w-full overflow-hidden bg-[#EAD7B7] py-2 text-black">
-      <div className="animate-infinite-scroll inline-flex whitespace-nowrap">
+      <div className="inline-flex animate-infinite-scroll whitespace-nowrap">
         {/* Primera serie de textos */}
         <div className="flex">
           <span className="mx-4">

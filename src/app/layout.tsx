@@ -29,8 +29,7 @@ const playfair = Playfair_Display({
 // };
 export const metadata: Metadata = {
   verification: {
-    google:
-      "google-site-verification=O4R2XjBEtnuUzALGf1T4aM3R7fP2uTMWrQTpA7DuAGc",
+    google: "O4R2XjBEtnuUzALGf1T4aM3R7fP2uTMWrQTpA7DuAGc",
   },
 };
 
